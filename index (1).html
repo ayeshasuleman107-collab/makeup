@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Radiance Lab — Define Your Glow</title>
+<meta name="description" content="Modern editorial beauty. Clean, cruelty-free makeup crafted to define your natural glow." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f7f3ec; --fg:#3a322c; --muted:#8a7f74; --nude:#ece2d3;
+    --gold:#c8a96a; --gold-soft:#e2cfa6; --charcoal:#2b2521; --border:#e3d9c9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:-.01em;color:var(--charcoal);line-height:1.05}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  em{font-style:normal;color:var(--gold)}
+  .container{max-width:1240px;margin:0 auto;padding:0 24px}
+  @media(min-width:768px){.container{padding:0 48px}}
+  .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--charcoal);color:#fff;padding:16px 36px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;border:0;cursor:pointer;transition:all .4s}
+  .btn:hover{background:var(--gold);color:var(--charcoal)}
+  .btn .arr{margin-left:12px;transition:transform .4s}
+  .btn:hover .arr{transform:translateX(4px)}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;z-index:50;transition:all .5s;background:transparent}
+  header.nav.scrolled{background:rgba(247,243,236,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--charcoal)}
+  .logo span{color:var(--gold)}
+  .nav-links{display:none;gap:40px;list-style:none}
+  @media(min-width:768px){.nav-links{display:flex}}
+  .nav-links a{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--charcoal);position:relative;padding-bottom:4px}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .5s}
+  .nav-links a:hover{color:var(--gold)} .nav-links a:hover::after{width:100%}
+  .bag{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--charcoal);background:none;border:0;cursor:pointer}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,#f3ecdf 0%,#e8d9bf 100%)}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:48px;padding:80px 0;align-items:center}
+  @media(min-width:768px){.hero-grid{grid-template-columns:1fr 1fr;gap:64px;padding:120px 0}}
+  .hero h1{font-size:clamp(48px,8vw,88px)}
+  .hero p.lead{margin-top:32px;max-width:440px;color:var(--muted);font-size:16px}
+  .hero-cta{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+  .text-link{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--charcoal)}
+  .text-link:hover{text-decoration:underline;text-underline-offset:4px}
+  .hero-img-wrap{position:relative}
+  .hero-img-wrap::before{content:"";position:absolute;inset:-16px -16px auto auto;width:100%;height:100%;border:1px solid rgba(200,169,106,.4);display:none}
+  @media(min-width:768px){.hero-img-wrap::before{display:block;inset:-16px auto auto -16px}}
+  .hero-img{position:relative;overflow:hidden;box-shadow:0 20px 50px -25px rgba(43,37,33,.25)}
+  .hero-img img{width:100%;height:480px;object-fit:cover}
+  @media(min-width:768px){.hero-img img{height:680px}}
+  .badge{position:absolute;bottom:-24px;right:-24px;background:var(--bg);padding:16px 24px;box-shadow:0 10px 40px -20px rgba(43,37,33,.2);display:none}
+  @media(min-width:768px){.badge{display:block}}
+  .badge p:first-child{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--charcoal)}
+  .badge p:last-child{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+  /* Section heads */
+  section{padding:96px 0}
+  @media(min-width:768px){section{padding:128px 0}}
+  .sec-head{display:flex;flex-direction:column;gap:24px;justify-content:space-between;margin-bottom:64px}
+  @media(min-width:768px){.sec-head{flex-direction:row;align-items:flex-end}}
+  .sec-head h2{font-size:clamp(36px,5vw,60px)}
+  .sec-center{text-align:center;margin-bottom:64px}
+  .sec-center .eyebrow{margin-bottom:16px;display:block}
+
+  /* Categories */
+  .cat-grid{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:768px){.cat-grid{grid-template-columns:repeat(3,1fr);gap:32px}}
+  .cat-card{position:relative;overflow:hidden;background:var(--nude);aspect-ratio:4/5;display:block}
+  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+  .cat-card:hover img{transform:scale(1.06)}
+  .cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,37,33,.5),transparent 60%)}
+  .cat-text{position:absolute;left:0;right:0;bottom:0;padding:32px;color:#fff}
+  .cat-text .sub{font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.85}
+  .cat-text h3{color:#fff;font-size:32px;margin-top:8px}
+
+  /* Products */
+  .prod-section{background:var(--nude)}
+  .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  @media(min-width:768px){.prod-grid{grid-template-columns:repeat(4,1fr);gap:32px}}
+  .prod-card{position:relative}
+  .prod-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--bg);box-shadow:0 10px 40px -20px rgba(43,37,33,.18)}
+  .prod-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+  .prod-card:hover .prod-img img{transform:scale(1.06)}
+  .quick-add{position:absolute;left:16px;right:16px;bottom:16px;background:rgba(43,37,33,.95);color:#fff;padding:12px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;border:0;cursor:pointer;opacity:0;transform:translateY(8px);transition:all .5s}
+  .prod-card:hover .quick-add{opacity:1;transform:none}
+  .quick-add:hover{background:var(--gold);color:var(--charcoal)}
+  .prod-meta{margin-top:20px;display:flex;justify-content:space-between;gap:12px}
+  .prod-meta h3{font-size:18px}
+  .prod-meta .shade{font-size:12px;color:var(--muted);margin-top:4px}
+  .prod-meta .price{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--charcoal)}
+
+  /* Philosophy */
+  .philo{text-align:center}
+  .philo .inner{max-width:780px;margin:0 auto;padding:0 24px}
+  .philo h2{font-size:clamp(40px,6vw,72px);margin-top:24px}
+  .philo p.body{margin-top:40px;max-width:560px;margin-left:auto;margin-right:auto;color:var(--muted);font-size:18px;line-height:1.7}
+  .pillars{display:grid;grid-template-columns:1fr;gap:48px;margin-top:80px}
+  @media(min-width:640px){.pillars{grid-template-columns:1fr 1fr}}
+  .pillar{border-top:1px solid rgba(200,169,106,.4);padding-top:32px;text-align:left}
+  .pillar p:first-child{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--charcoal)}
+  .pillar p:last-child{margin-top:12px;font-size:14px;color:var(--muted)}
+
+  /* Instagram */
+  .ig-section{background:var(--nude);padding:96px 0}
+  .ig-head{text-align:center;margin-bottom:48px}
+  .ig-head h2{font-size:clamp(32px,4.5vw,48px);margin-top:16px}
+  .ig-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media(min-width:768px){.ig-grid{grid-template-columns:repeat(5,1fr);gap:16px}}
+  .ig-item{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--nude);display:block}
+  .ig-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+  .ig-item:hover img{transform:scale(1.06)}
+  .ig-overlay{position:absolute;inset:0;background:rgba(43,37,33,.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s}
+  .ig-overlay span{color:#fff;font-size:10px;letter-spacing:.28em;text-transform:uppercase}
+  .ig-item:hover .ig-overlay{opacity:1}
+
+  /* Newsletter */
+  .news{background:var(--bg)}
+  .news-box{max-width:780px;margin:0 auto;border:1px solid rgba(200,169,106,.4);padding:64px 32px;text-align:center}
+  @media(min-width:768px){.news-box{padding:80px 64px}}
+  .news h3{font-size:clamp(32px,4vw,48px);margin-top:16px}
+  .news p{margin-top:20px;color:var(--muted);max-width:420px;margin-left:auto;margin-right:auto}
+  .news form{margin:40px auto 0;max-width:480px;display:flex;flex-direction:column;gap:12px}
+  @media(min-width:640px){.news form{flex-direction:row}}
+  .news input{flex:1;border:0;border-bottom:1px solid rgba(43,37,33,.3);background:transparent;padding:12px 8px;font-size:14px;color:var(--charcoal);font-family:inherit}
+  .news input:focus{outline:0;border-color:var(--gold)}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border);background:var(--bg);padding:48px 0}
+  .foot{display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center}
+  @media(min-width:768px){.foot{flex-direction:row;justify-content:space-between}}
+  .socials{display:flex;gap:24px}
+  .socials a{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--charcoal)}
+  .socials a:hover{color:var(--gold)}
+  .copy{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">Radiance<span>&nbsp;Lab</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Face</a></li>
+      <li><a href="#">Eyes</a></li>
+      <li><a href="#">Lips</a></li>
+      <li><a href="#story">Our Story</a></li>
+    </ul>
+    <button class="bag">Bag (0)</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <p class="eyebrow" style="margin-bottom:24px">New Season — Spring Collection</p>
+      <h1>Define <em>Your</em><br/>Glow.</h1>
+      <p class="lead">Editorial-grade essentials made with clean, considered ingredients. Designed for skin that speaks for itself.</p>
+      <div class="hero-cta">
+        <button class="btn">Shop New Arrivals <span class="arr">→</span></button>
+        <a href="#story" class="text-link">The Edit</a>
+      </div>
+    </div>
+    <div class="reveal hero-img-wrap">
+      <div class="hero-img"><img src="assets/hero-portrait.jpg" alt="Editorial beauty portrait" /></div>
+      <div class="badge"><p>100+</p><p>Editorial shades</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow" style="margin-bottom:16px">Curated for you</p>
+        <h2>Find your edit.</h2>
+      </div>
+      <a href="#" class="text-link">View all categories →</a>
+    </div>
+    <div class="cat-grid">
+      <a href="#" class="cat-card reveal"><img src="assets/cat-bestsellers.jpg" alt="Best Sellers" /><div class="cat-overlay"></div><div class="cat-text"><p class="sub">The Loved Ones</p><h3>Best Sellers</h3></div></a>
+      <a href="#" class="cat-card reveal"><img src="assets/cat-vegan.jpg" alt="Vegan Picks" /><div class="cat-overlay"></div><div class="cat-text"><p class="sub">Conscious Beauty</p><h3>Vegan Picks</h3></div></a>
+      <a href="#" class="cat-card reveal"><img src="assets/cat-gifts.jpg" alt="Gift Sets" /><div class="cat-overlay"></div><div class="cat-text"><p class="sub">For Someone Special</p><h3>Gift Sets</h3></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="prod-section">
+  <div class="container">
+    <div class="sec-center">
+      <span class="eyebrow">The Showcase</span>
+      <h2>Quietly luxurious.</h2>
+    </div>
+    <div class="prod-grid">
+      <article class="prod-card reveal"><div class="prod-img"><img src="assets/product-1.jpg" alt="Velvet Nude Lipstick" /><button class="quick-add">+ Quick Add</button></div><div class="prod-meta"><div><h3>Velvet Nude Lipstick</h3><p class="shade">No. 03 — Bisque</p></div><p class="price">$32</p></div></article>
+      <article class="prod-card reveal"><div class="prod-img"><img src="assets/product-2.jpg" alt="Champagne Highlighter" /><button class="quick-add">+ Quick Add</button></div><div class="prod-meta"><div><h3>Champagne Highlighter</h3><p class="shade">Lit From Within</p></div><p class="price">$38</p></div></article>
+      <article class="prod-card reveal"><div class="prod-img"><img src="assets/product-3.jpg" alt="Skin Tint Foundation" /><button class="quick-add">+ Quick Add</button></div><div class="prod-meta"><div><h3>Skin Tint Foundation</h3><p class="shade">Soft Glow Finish</p></div><p class="price">$46</p></div></article>
+      <article class="prod-card reveal"><div class="prod-img"><img src="assets/product-4.jpg" alt="Defining Mascara" /><button class="quick-add">+ Quick Add</button></div><div class="prod-meta"><div><h3>Defining Mascara</h3><p class="shade">Carbon Noir</p></div><p class="price">$28</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="story" class="philo">
+  <div class="inner">
+    <p class="eyebrow reveal">Our Philosophy</p>
+    <h2 class="reveal">Beauty, considered.<br/><em>Never compromised.</em></h2>
+    <p class="body reveal">Every formula is developed in our lab with the same patience a perfumer gives a fragrance. Sustainable, certified, and made for skin that wants less — but better.</p>
+    <div class="pillars reveal">
+      <div class="pillar"><p>Cruelty-Free</p><p>Leaping Bunny certified. Always.</p></div>
+      <div class="pillar"><p>Clean Beauty</p><p>Free from 1,800+ questionable ingredients.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ig-section">
+  <div class="container">
+    <div class="ig-head">
+      <span class="eyebrow">@radiancelab</span>
+      <h2>Seen on You.</h2>
+    </div>
+    <div class="ig-grid">
+      <a href="#" class="ig-item reveal"><img src="assets/ig-1.jpg" alt="Community 1" /><div class="ig-overlay"><span>View</span></div></a>
+      <a href="#" class="ig-item reveal"><img src="assets/ig-2.jpg" alt="Community 2" /><div class="ig-overlay"><span>View</span></div></a>
+      <a href="#" class="ig-item reveal"><img src="assets/ig-3.jpg" alt="Community 3" /><div class="ig-overlay"><span>View</span></div></a>
+      <a href="#" class="ig-item reveal"><img src="assets/ig-4.jpg" alt="Community 4" /><div class="ig-overlay"><span>View</span></div></a>
+      <a href="#" class="ig-item reveal"><img src="assets/ig-5.jpg" alt="Community 5" /><div class="ig-overlay"><span>View</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="news">
+  <div class="container">
+    <div class="news-box reveal">
+      <span class="eyebrow">Members Only</span>
+      <h3>Join the Glow Club.</h3>
+      <p>Early access, editorial drops, and 10% off your first order.</p>
+      <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Welcome ✦';">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <p class="logo">Radiance<span>&nbsp;Lab</span></p>
+    <div class="socials">
+      <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Pinterest</a><a href="#">YouTube</a>
+    </div>
+    <p class="copy">© <span id="yr"></span> Radiance Lab</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*60); io.unobserve(e.target);} });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
